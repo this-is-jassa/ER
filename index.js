@@ -9,7 +9,8 @@ const rfs = require('rotating-file-stream');
 const cookie = require('cookie-parser');
 const path = require('path');
 const mongoose = require('mongoose');
-const { PORT, NODE_ENV, MONGO_CONNECTION_STRING } = require('./config');
+const sgMail = require('@sendgrid/mail');
+const { PORT, NODE_ENV, MONGO_CONNECTION_STRING, SENDGRID_API_KEY } = require('./config');
 
 
 
@@ -17,6 +18,7 @@ const { PORT, NODE_ENV, MONGO_CONNECTION_STRING } = require('./config');
 (async function () {
     try {
         await mongoose.connect(MONGO_CONNECTION_STRING, { useNewUrlParser: true, useUnifiedTopology: true, });
+        sgMail.setApiKey(SENDGRID_API_KEY);
         console.log('Connected to the database');
     } catch (error) {
         console.log(err);
