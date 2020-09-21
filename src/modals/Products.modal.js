@@ -1,27 +1,25 @@
+
 const mongo = require('mongoose');
 const { Types } = mongo.Schema;
 
 const schema = new mongo.Schema({
-
-    domain: {
+    productId: {
         type: Types.String,
         required: true
     },
-    clientName: {
+    returnNumber: {
+        type: Types.String,
+        required: false
+    },
+    productName: {
         type: Types.String,
         required: true
     },
-    password: {
-        type: Types.String,
-        required: true
-    },
-    email: {
-        type: Types.String,
-        required: true
-    },
-    notifyEmails: [Types.String],
-    group: [Types.String]
+    client: {
+        type: Types.ObjectId,
+        ref: 'users'
+    }
 
 });
 
-module.exports = mongo.model('users', schema);
+module.exports = mongo.model('products', schema);
